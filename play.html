@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nate's Simon</title>
+        <link rel="icon" href="./favicon.ico" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html">Home</a> |
+                <a href="play.html">Play</a> |
+                <a href="scores.html">Score Board</a> |
+                <a href="about.html">About</a>
+            </nav>
+            <h1>Simon Says</h1>
+        </header>
+
+        <main>
+            <hr/>
+            <div class="player">
+                <span> Player: </span>
+                <span class="player-name"> Guest </span>
+            </div>
+            <br/>
+            <div>
+                <label for="count">Score</label>
+                <input type="text" id="count" value="---" readonly />
+            </div>
+            <br/>
+            <div>
+                <button> Reset </button>
+            </div>
+            <br>
+            <div>
+                <svg width="220" height="220" viewBox="0 0 220 220">
+                    <g transform="translate(110,110)" stroke="#000" stroke-width="3">
+                        <path d="M0,0 L0,-100  A100,100 0 0,1  100,0  z" style="fill:red;"/>
+                        <path d="M0,0 L100,0  A100,100 0 0,1  0,100  z" style="fill:green"/>
+                        <path d="M0,0 L0,100  A100,100 0 0,1  -100,0  z" style="fill:blue"/>
+                        <path d="M0,0 L-100,0  A100,100 0 0,1  0,-100  z" style="fill:yellow"/>
+                       </g>
+                  </svg>
+            </div>
+            
+        </main>
+
+        <footer>
+            <hr/>
+            <span>Author(s) </span>
+            <br/>
+            <a href="https://github.com/n8petersen/simon">GitHub</a>
+        </footer>
+    </body>
+</html>

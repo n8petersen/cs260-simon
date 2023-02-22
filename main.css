@@ -133,6 +133,18 @@ menu .nav-item {
   transform: translateX(-50%) translateY(-50%);
 }
 
+footer a {
+  float: right;
+}
+
+#login {
+  width: 400px;
+  height: 150px;
+  margin: 0 auto;
+  padding: 10px;
+  position: absolute;
+}
+
 @media (max-height: 560px) {
   header {
     display: none;
@@ -143,9 +155,4 @@ menu .nav-item {
   main {
     flex: 1 100vh;
   }
-}
-
-
-footer a {
-  float: right;
 }

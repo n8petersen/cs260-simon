@@ -5,32 +5,62 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nate's Simon</title>
         <link rel="icon" href="./favicon.ico" />
-    </head>
-    <body>
-        <header>
-            <nav>
-                <a href="./">Home</a> |
-                <a href="./play.html">Play</a> |
-                <a href="./scores.html">Score Board</a> |
-                <a href="./about.html">About</a>
-            </nav>
-            <h1>Simon Says</h1>
-        </header>
 
-        <main>
-            <hr/>
-            <form method="get" action="play.html">
-                <label for="name">Name</label>
-                <input type ="text" id="name">
-                <button type="submit">Login</button>
-            </form>
+        <link rel="stylesheet" href="main.css" />
+
+        <!-- Include bootstrap CSS framework -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+        />
+    </head>
+
+
+    <body class="bg-dark text-light">
+    
+        <header class="container-fluid">
+            <nav class="navbar fixed-top navbar-dark">
+              <a class="navbar-brand" href="#">Simon<sup>&reg;</sup></a>
+              <menu class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="play.html">Play</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="scores.html">Scores</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="about.html">About</a>
+                </li>
+              </menu>
+            </nav>
+          </header>
+
+
+        <main class="container-fluid bg-secondary text-center">
+            <div>
+                <h1>Login</h1>
+                <form method="get" action="play.html">
+                    <input type ="text" id="name" placeholder="Username">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
         </main>
 
-        <footer>
-            <hr/>
-            <span>Author(s) </span>
-            <br/>
-            <a href="https://github.com/n8petersen/simon">GitHub</a>
+
+        <footer class="bg-dark text-dark text-muted">
+            <div class="container-fluid">
+                <span class="text-reset">Nathan Petersen</span>
+                <a class="text-reset" href="https://github.com/webprogramming260/simon-css"> Source </a>
+            </div>
         </footer>
+
+
     </body>
+
+    
 </html>

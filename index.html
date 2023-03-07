@@ -4,8 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nate's Simon</title>
-        <link rel="icon" href="./favicon.ico" />
 
+        <script src="./js/login.js"></script>
+
+        <link rel="icon" href="./favicon.ico" />
         <link rel="stylesheet" href="main.css" />
 
         <!-- Include bootstrap CSS framework -->
@@ -47,9 +49,8 @@
                     <h1>Login</h1>
                 </div>
                 <div class="d-flex justify-content-center align-items-center"></div>
-                    <form method="get" action="./html/play.html">
                     <input type ="text" id="name" placeholder="Username">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button class="btn btn-primary" onclick="login()">Login</button>
                 </form>
                 </div>
             </div>

@@ -6,8 +6,8 @@ const btnDescriptions = [
 ];
 
 class Button {
-    constructor(description, el) {
-        this.el = el;
+    constructor(description, element) {
+        this.element = element;
         this.hue = description.hue;
         this.sound = loadSound(description.file);
         this.paint(25);
@@ -15,7 +15,7 @@ class Button {
 
     paint(level) {
         const background = `hsl(${this.hue}, 100%, ${level}%)`;
-        this.el.style.backgroundColor = background;
+        this.element.style.backgroundColor = background;
     }
 
     async press(volume) {
@@ -48,14 +48,14 @@ class Game {
         this.playerPlaybackPos = 0;
         this.mistakeSound = loadSound('error.mp3');
 
-        document.querySelectorAll('.game-button').forEach((el, i) => {
+        document.querySelectorAll('.game-button').forEach((element, i) => {
             if (i < btnDescriptions.length) {
-                this.buttons.set(el.id, new Button(btnDescriptions[i], el));
+                this.buttons.set(element.id, new Button(btnDescriptions[i], element));
             }
         });
 
-        const playerNameEl = document.querySelector('.player-name');
-        playerNameEl.textContent = this.getPlayerName();
+        const playerNameElement = document.querySelector('.player-name');
+        playerNameElement.textContent = this.getPlayerName();
     }
 
     async pressButton(button) {
@@ -63,7 +63,7 @@ class Game {
             this.allowPlayer = false;
             await this.buttons.get(button.id).press(1.0);
 
-            if (this.sequence[this.playerPlaybackPos].el.id === button.id) {
+            if (this.sequence[this.playerPlaybackPos].element.id === button.id) {
                 this.playerPlaybackPos++;
                 if (this.playerPlaybackPos === this.sequence.length) {
                     this.playerPlaybackPos = 0;
@@ -109,8 +109,8 @@ class Game {
     }
 
     updateScore(score) {
-        const scoreEl = document.querySelector('#score');
-        scoreEl.textContent = score;
+        const scoreElement = document.querySelector('#score');
+        scoreElement.textContent = score;
     }
 
     async buttonDance(laps = 1) {
@@ -140,7 +140,8 @@ class Game {
 
     updateScores(username, score, scores) {
         const date = new Date().toLocaleDateString();
-        const newScore = { name: username, score: score, date: date };
+        const time = new Date().toLocaleTimeString();
+        const newScore = { name: username, score: score, date: date, time: time };
 
         let found = false;
         for (const [i, prevScore] of scores.entries()) {

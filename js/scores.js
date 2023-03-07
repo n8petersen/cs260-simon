@@ -5,30 +5,30 @@ function loadScores() {
         scores = JSON.parse(scoresText);
     }
 
-    const tableBodyEl = document.querySelector('#scores');
+    const tableBodyElement = document.querySelector('#scores');
 
     if (scores.length) {
         for (const [i, score] of scores.entries()) {
-            const positionTdEl = document.createElement('td');
-            const nameTdEl = document.createElement('td');
-            const scoreTdEl = document.createElement('td');
-            const dateTdEl = document.createElement('td');
+            const positionTdElement = document.createElement('td');
+            const nameTdElement = document.createElement('td');
+            const scoreTdElement = document.createElement('td');
+            const dateTdElement = document.createElement('td');
 
-            positionTdEl.textContent = i + 1;
-            nameTdEl.textContent = score.name;
-            scoreTdEl.textContent = score.score;
-            dateTdEl.textContent = score.date;
+            positionTdElement.textContent = i + 1;
+            nameTdElement.textContent = score.name;
+            scoreTdElement.textContent = score.score;
+            dateTdElement.textContent = score.date + " " + score.time;
 
-            const rowEl = document.createElement('tr');
-            rowEl.appendChild(positionTdEl);
-            rowEl.appendChild(nameTdEl);
-            rowEl.appendChild(scoreTdEl);
-            rowEl.appendChild(dateTdEl);
+            const rowElement = document.createElement('tr');
+            rowElement.appendChild(positionTdElement);
+            rowElement.appendChild(nameTdElement);
+            rowElement.appendChild(scoreTdElement);
+            rowElement.appendChild(dateTdElement);
 
-            tableBodyEl.appendChild(rowEl);
+            tableBodyElement.appendChild(rowElement);
         }
     } else {
-        tableBodyEl.innerHTML = '<tr><td colSpan=4>No scores yet!</td></tr>'
+        tableBodyElement.innerHTML = '<tr><td colSpan=4>No scores yet!</td></tr>'
     }
 }
 

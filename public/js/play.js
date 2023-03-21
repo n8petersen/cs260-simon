@@ -30,7 +30,7 @@ class Button {
           this.sound.onended = resolve;
           this.sound.play();
         });
-      }
+    }
 }
 
 
@@ -126,43 +126,92 @@ class Game {
         return buttons[Math.floor(Math.random() * this.buttons.size)];
     }
 
-    saveScore(score) {
-        const username = this.getPlayerName();
+    // saveScore(score) { // Deprecated with back-end service
+    //     const username = this.getPlayerName();
+    //     let scores = [];
+    //     const scoresText = localStorage.getItem('scores');
+    //     if (scoresText) {
+    //         scores = JSON.parse(scoresText);
+    //     }
+    //     scores = this.updateScores(username, score, scores);
+
+    //     localStorage.setItem('scores', JSON.stringify(scores));
+    // }
+
+    async saveScore(score) {
+        const userName = this.getPlayerName();
+        const date = new Date().toLocaleDateString();
+        const time = new Date().toLocaleTimeString();
+        const newScore = { name: userName, score: score, date: date, time: time };
+        // const newScore = { name: userName, score: score, date: date };
+    
+        try {
+          const response = await fetch('/api/score', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newScore),
+          });
+    
+          // Store what the service gave us as the high scores
+          const scores = await response.json();
+          localStorage.setItem('scores', JSON.stringify(scores));
+        } catch {
+          // If there was an error then just track scores locally
+          this.updateScoresLocal(newScore);
+        }
+    }
+
+    // updateScores(username, score, scores) { // Deprecated with back-end service
+    //     const date = new Date().toLocaleDateString();
+    //     const time = new Date().toLocaleTimeString();
+    //     const newScore = { name: username, score: score, date: date, time: time };
+
+    //     let found = false;
+    //     for (const [i, prevScore] of scores.entries()) {
+    //         if (score > prevScore.score) {
+    //             scores.splice(i, 0, newScore);
+    //             found = true;
+    //             break;
+    //         }
+    //     }
+
+    //     if (!found) {
+    //         scores.push(newScore);
+    //     }
+
+    //     if (scores.length > 10) {
+    //         scores.length = 10;
+    //     }
+
+    //     return scores;
+    // }
+
+    updateScoresLocal(newScore) {
         let scores = [];
         const scoresText = localStorage.getItem('scores');
         if (scoresText) {
-            scores = JSON.parse(scoresText);
+          scores = JSON.parse(scoresText);
         }
-        scores = this.updateScores(username, score, scores);
-
-        localStorage.setItem('scores', JSON.stringify(scores));
-    }
-
-    updateScores(username, score, scores) {
-        const date = new Date().toLocaleDateString();
-        const time = new Date().toLocaleTimeString();
-        const newScore = { name: username, score: score, date: date, time: time };
-
+    
         let found = false;
         for (const [i, prevScore] of scores.entries()) {
-            if (score > prevScore.score) {
-                scores.splice(i, 0, newScore);
-                found = true;
-                break;
-            }
+          if (newScore > prevScore.score) {
+            scores.splice(i, 0, newScore);
+            found = true;
+            break;
+          }
         }
-
+    
         if (!found) {
-            scores.push(newScore);
+          scores.push(newScore);
         }
-
+    
         if (scores.length > 10) {
-            scores.length = 10;
+          scores.length = 10;
         }
-
-        return scores;
+    
+        localStorage.setItem('scores', JSON.stringify(scores));
     }
-
 
 }
 

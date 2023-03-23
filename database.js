@@ -1,5 +1,8 @@
 const {MongoClient} = require('mongodb');
 
+const dontenv = require('dotenv');
+dontenv.config();
+
 const userName = process.env.MONGOUSER;
 const password = process.env.MONGOPASSWORD;
 const hostname = process.env.MONGOHOSTNAME;
@@ -9,6 +12,7 @@ if (!userName) {
 }
 
 const url = `mongodb+srv://${userName}:${password}@${hostname}`;
+console.log(url);
 
 const client = new MongoClient(url);
 const scoreCollection = client.db('simon').collection('score');

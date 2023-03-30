@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { PeerProxy } = require('./peerProxy.js');
 
 // use .env variables
 require('dotenv').config()
@@ -95,7 +96,7 @@ apiRouter.get('/scores', async (_req, res) => {
 
 // SubmitScore
 apiRouter.post('/score', async (req, res) => {
-  DB.addScore(req.body);
+  await DB.addScore(req.body);
   const scores = await DB.getHighScores();
   res.send(scores);
 });
@@ -125,6 +126,8 @@ function setAuthCookie(res, authToken) {
 
 
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+new PeerProxy(httpService);

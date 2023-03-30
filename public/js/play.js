@@ -1,3 +1,7 @@
+// Event messages
+const GameEndEvent = 'gameEnd';
+const GameStartEvent = 'gameStart';
+
 const btnDescriptions = [
     { file: 'sound1.mp3', hue: 120 },
     { file: 'sound2.mp3', hue: 0 },
@@ -24,6 +28,7 @@ class Button {
         this.paint(25);
     }
 
+    // Work around Safari's rule to only play sounds if given permission.
     async play(volume = 1.0) {
         this.sound.volume = volume;
         await new Promise((resolve) => {
@@ -33,13 +38,13 @@ class Button {
     }
 }
 
-
 class Game {
     buttons;
     allowPlayer;
     sequence;
     playerPlaybackPos;
     mistakeSound;
+    socket;
 
     constructor() {
         this.buttons = new Map();
@@ -56,6 +61,8 @@ class Game {
 
         const playerNameElement = document.querySelector('.player-name');
         playerNameElement.textContent = this.getPlayerName();
+
+        this.configureWebSocket();
     }
 
     async pressButton(button) {
@@ -89,6 +96,9 @@ class Game {
         this.addButton();
         await this.playSequence();
         this.allowPlayer = true;
+
+        // Let other players know a new game has started
+        this.broadcastEvent(this.getPlayerName(), GameStartEvent, {});
     }
 
     getPlayerName() {
@@ -175,17 +185,51 @@ class Game {
         localStorage.setItem('scores', JSON.stringify(scores));
     }
 
+
+    // Functionality for peer communication using WebSocket
+
+    configureWebSocket() {
+        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+        this.socket.onopen = (event) => {
+            this.displayMsg('system', 'game', 'connected');
+        };
+        this.socket.onclose = (event) => {
+            this.displayMsg('system', 'game', 'disconnected');
+        };
+        this.socket.onmessage = async (event) => {
+            const msg = JSON.parse(await event.data.text());
+            if (msg.type === GameEndEvent) {
+                this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
+            } else if (msg.type === GameStartEvent) {
+                this.displayMsg('player', msg.from, `started a new game`);
+            }
+        };
+    }
+
+    displayMsg(cls, from, msg) {
+        const chatText = document.querySelector('#player-messages');
+        chatText.innerHTML =
+            `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+    }
+
+    broadcastEvent(from, type, value) {
+        const event = {
+            from: from,
+            type: type,
+            value: value,
+        };
+        this.socket.send(JSON.stringify(event));
+    }
 }
 
 const game = new Game();
 
 function delay(milliseconds) {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(true);
-        }, milliseconds);
+      setTimeout(resolve, milliseconds);
     });
-}
+  }
 
 function loadSound(filename) {
     return new Audio('../assets/' + filename);

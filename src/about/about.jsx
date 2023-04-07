@@ -39,7 +39,9 @@ export function About(props) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <div>
-        <div id="picture" className="picture-box"></div>
+        <div id="picture" className="picture-box">
+          {imgEl}
+        </div>
 
         <p>
           Simon is a repetitive memory game where you follow the demonstrated

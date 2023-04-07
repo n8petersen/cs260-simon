@@ -41,7 +41,7 @@ function App() {
           </div>
           <menu className='navbar-nav'>
             <li className='nav-item'>
-              <NavLink className='nav-link active' to='index'>
+              <NavLink className='nav-link active' to=''>
                 Home
               </NavLink>
             </li>

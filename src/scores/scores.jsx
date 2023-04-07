@@ -25,8 +25,8 @@ export function Scores() {
       scoreRows.push(
         <tr key={i}>
           <td>{i}</td>
-          {/* <td>{score.name}</td> */} {/* not sure which I need or want to use yet */}
-          <td>{score.name.split('@')[0]}</td> {/* gets just first part of email */}
+          <td>{score.name}</td> {/* not sure which I need or want to use yet */}
+          {/* <td>{score.name.split('@')[0]}</td> gets just first part of email */}
           <td>{score.score}</td>
           {/* <td>{score.date}</td> */} {/* deprecated in favor of including the time of the score */}
           <td>{score.date + " " + score.time}</td>

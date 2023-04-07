@@ -41,26 +41,26 @@ function App() {
           </div>
           <menu className='navbar-nav'>
             <li className='nav-item'>
-              <NavLink className='nav-link active' href='index.html'>
+              <NavLink className='nav-link active' to='index'>
                 Home
               </NavLink>
             </li>
             {authState === AuthState.Authenticated && (
               <li className='nav-item'>
-                <NavLink className='nav-link' href='play.html'>
+                <NavLink className='nav-link' to='play'>
                   Play
                 </NavLink>
               </li>
             )}
             {authState === AuthState.Authenticated && (
               <li className='nav-item'>
-                <NavLink className='nav-link' href='scores.html'>
+                <NavLink className='nav-link' to='scores'>
                   Scores
                 </NavLink>
               </li>
             )}
             <li className='nav-item'>
-              <NavLink className='nav-link' href='about.html'>
+              <NavLink className='nav-link' to='about'>
                 About
               </NavLink>
             </li>

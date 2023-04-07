@@ -79,7 +79,7 @@ function App() {
             }}
           />
         } exact />
-        <Route path='/play' element={<Play />} />
+        <Route path='/play' element={<Play userName={userName} />} />
         <Route path='/scores' element={<Scores />} />
         <Route path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />
